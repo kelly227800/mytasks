@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    const url = 'http://www.baidu.com?name=zhangsan&age=18&sex=nan#'
+    const process = (url) => {
+      const indexStart = url.indexOf('?')
+      const indexEnd = url.indexOf('#')
+    //   let res = {}
+      url = url.slice(indexStart + 1, indexEnd)
+      console.log(url)
+      let params = url.split('&')
+    //   console.log(params)
+
+      let res = params.reduce((pre,curr) => {
+        let currArr = curr.split('=')
+        pre[currArr[0]] = currArr[1]
+        return pre 
+      },{})
+
+    //   params.forEach((item) => {
+    //     // console.log(item);
+    //     let itemArr = item.split('=')
+    //     res[itemArr[0]] = itemArr[1]
+    //   })
+      return res
+    }
+   console.log(process(url));
+  </script>
+</html>
