@@ -14,7 +14,7 @@
   5. 信息展示部分 爱好 展示 以逗号 做为分割符
   6. 信息展示部分 是否记住密码 用是和否 -->
 
-  <div>
+  <!-- <div>
     <div>
       <span>选择所在地区：</span>
       <input type="radio" value="中国大陆" name="area" v-model="area">中国大陆
@@ -56,32 +56,77 @@
       <br>
       是否记住密码：{{isgrow ? '是' : '否'}}
     </div>
-
+  </div> -->
+  <div class="container">
+    <!-- 需求如下：
+        1. 鼠标经过图片列表区的哪张图片，右侧的预览区 就是展示对应的图片
+        2. 鼠标点击图片列表区的哪张图片， alert出图片的具体信息 -->
+    <div class="imglist">
+      <h3>图片列表区</h3>
+      <img src="./assets/01.jpg" alt="" @mouseover="mouseoverFn(1)" @click="clickFn(1, $event)">
+      <img src="./assets/02.jpg" alt="" @mouseover="mouseoverFn(2)" @click="clickFn(2, $event)">
+      <img src="./assets/03.jpg" alt="" @mouseover="mouseoverFn(3)" @click="clickFn(3, $event)">
+    </div>
+    <div class="show">
+      <h3>图片预览区</h3>
+      <img :src="currentImg" alt="" style="width:600px;height:auto;">
+    </div>
   </div>
 </template>
 
 <script>
+import img01 from './assets/01.jpg';
+import img02 from './assets/02.jpg';
+import img03 from './assets/03.jpg';
+
 export default {
   name: 'App',
   data() {
     // return {
     //   msg: 'Hello, World',
     // }
+
+    // return {
+    //   area: '中国大陆',
+    //   phone: '',
+    //   age: '',
+    //   password: '',
+    //   hobby: ['学习','写代码'],
+    //   isgrow: true,
+    // }
+
     return {
-      area: '中国大陆',
-      phone: '',
-      age: '',
-      password: '',
-      hobby: ['学习','写代码'],
-      isgrow: true,
+      currentImg: img01,
     }
   },
   methods: {
     // reverse() {
     //   this.msg = this.msg.split('').reverse().join('')
     // },
+    mouseoverFn(val) {
+       this.currentImg = {1: img01,2: img02, 3: img03}[val]
+    },
+    clickFn(val, e) {
+      alert(`第${val}张图片的地址是${e.target.src}`)
+    }
   },
 }
 </script>
 
-<style></style>
+<style scoped>
+  .container {
+    display:flex;
+  }
+ .imglist { 
+  border: 2px solid red;
+ }
+.imglist img {
+  width: 200px;
+  height: auto;
+}
+.show {
+  border: 2px solid red;
+  margin-right: 20px;
+}
+
+</style>
